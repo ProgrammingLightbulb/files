@@ -11,12 +11,16 @@ int main( )
  
    /*cout<<a<<" "<<b<<" "<<c;//display data to console (i.e. as formatted chars)*/
 
-   ofstream file{"abc.txt"};
+   ofstream file{"abc.bin", ios::binary};
 
    if (file)
-	file << a << " " << b << " " << c;
+   {
+	file.write(reinterpret_cast<char*>(&a), sizeof(a));
+	file.write(reinterpret_cast<char*>(&b), sizeof(b));
+	file.write(reinterpret_cast<char*>(&c), sizeof(c));
+   }
    else
-	cout << "Error opening abc.txt" << endl;
+	cout << "Error opening abc.bin" << endl;
 
    file.close();
 
